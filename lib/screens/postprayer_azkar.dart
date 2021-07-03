@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 class PostPrayer extends StatefulWidget {
+  static const routeName='/post_screen';
+
   @override
   _PostPrayerState createState() => _PostPrayerState();
 }
@@ -11,37 +13,40 @@ class _PostPrayerState extends State<PostPrayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "أذكار الصباح",
-          style: TextStyle(
-            color: Colors.yellow,
-            fontSize: 25,
-            fontFamily: 'Aref+Ruqaa:700',
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "أذكار الصباح",
+            style: TextStyle(
+              color: Colors.yellow,
+              fontSize: 25,
+              fontFamily: 'Aref+Ruqaa:700',
+            ),
+            textAlign: TextAlign.end,
           ),
-          textAlign: TextAlign.end,
-        ),
-        backgroundColor: pr,
-        brightness: Brightness.dark,
+          backgroundColor: pr,
+          brightness: Brightness.dark,
 
-      ),
-      body: FutureBuilder(
-        future: DefaultAssetBundle.of(context)
-            .loadString('assets/json/PostPrayer_azkar.json'),
-        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-          var mydata = jsonDecode(snapshot.data.toString());
-          return ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              return buildWidget(
-                  context,
-                  mydata[index]["zekr"],
-                  "عدد المرات:${mydata[index]["repeat"]}",
-                  mydata[index]["bless"]);
-            },
-            itemCount: 13,
-          );
-        },
+        ),
+        body: FutureBuilder(
+          future: DefaultAssetBundle.of(context)
+              .loadString('assets/json/PostPrayer_azkar.json'),
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            var mydata = jsonDecode(snapshot.data.toString());
+            return ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                return buildWidget(
+                    context,
+                    mydata[index]["zekr"],
+                    "عدد المرات:${mydata[index]["repeat"]}",
+                    mydata[index]["bless"]);
+              },
+              itemCount: 13,
+            );
+          },
+        ),
       ),
     );
   }
@@ -53,7 +58,7 @@ class _PostPrayerState extends State<PostPrayer> {
       child: Container(
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: Colors.yellow,
+            color: Colors.white38,
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(color: Colors.black, width: 5.0),
           ),

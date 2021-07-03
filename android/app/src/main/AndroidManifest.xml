@@ -2,7 +2,8 @@
     package="com.example.flutter_app2">
    <application
         android:label="Azkar"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

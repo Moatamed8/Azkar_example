@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 class AzkarMasaa extends StatefulWidget {
+
+  static const routeName='/masaa_screen';
+
   @override
   _AzkarMasaaState createState() => _AzkarMasaaState();
 }
@@ -13,38 +16,40 @@ class _AzkarMasaaState extends State<AzkarMasaa> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        brightness: Brightness.dark,
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          brightness: Brightness.dark,
 
-        title: Text(
-          "أذكار المساء",
-          style: TextStyle(
-            color: Colors.yellow,
-            fontSize: 25,
-            fontFamily: 'Aref+Ruqaa:700',
+          title: Text(
+            "أذكار المساء",
+            style: TextStyle(
+              color: Colors.yellow,
+              fontSize: 25,
+              fontFamily: 'Aref+Ruqaa:700',
+            ),
           ),
-          textAlign: TextAlign.end,
+          backgroundColor: pr,
         ),
-        backgroundColor: pr,
-      ),
-      body: FutureBuilder(
-        future: DefaultAssetBundle.of(context)
-            .loadString('assets/json/azkar_massa.json'),
-        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-          var mydata = jsonDecode(snapshot.data.toString());
-          return ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              return buildWidget(
-                  context,
-                  mydata[index]["zekr"],
-                  "عدد المرات:${mydata[index]["repeat"]}",
-                  mydata[index]["bless"]);
-            },
-            itemCount: 30,
-          );
-        },
+        body: FutureBuilder(
+          future: DefaultAssetBundle.of(context)
+              .loadString('assets/json/azkar_massa.json'),
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            var mydata = jsonDecode(snapshot.data.toString());
+            return ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                return buildWidget(
+                    context,
+                    mydata[index]["zekr"],
+                    "عدد المرات:${mydata[index]["repeat"]}",
+                    mydata[index]["bless"]);
+              },
+              itemCount: 30,
+            );
+          },
 
+        ),
       ),
     );
   }
@@ -56,7 +61,7 @@ class _AzkarMasaaState extends State<AzkarMasaa> {
       child: Container(
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: Colors.yellow,
+            color: Colors.white38,
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(color: Colors.black, width: 5.0),
           ),

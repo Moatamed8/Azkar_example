@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app2/screens/azkar_masaa.dart';
-import 'package:flutter_app2/screens/azkar_sabah.dart';
-import 'package:flutter_app2/screens/postprayer_azkar.dart';
+import 'package:flutter_app2/api_services/details_provider.dart';
+import 'package:flutter_app2/widget/drawer.dart';
+import 'package:provider/provider.dart';
+import 'config/routes.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:async';
+
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp( MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_)=>DetailsProvider()),
+      ],
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: routes,
       theme: ThemeData(),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
@@ -21,14 +29,12 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Color pr=Color(0xff131a31);
+  Color pr = Color(0xff131a31);
 
   int _counter = 0;
   bool isClick = true;
@@ -72,7 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -96,7 +101,6 @@ class _MyHomePageState extends State<MyHomePage> {
     prefs.remove("counter");
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
         iconTheme: IconThemeData(color: Colors.yellow),
         centerTitle: true,
         title: Text(
-        "السبحه",
+          "السبحه",
           style: TextStyle(
               color: Colors.yellow, fontSize: 25, fontFamily: 'Aref+Ruqaa:700'),
           textDirection: TextDirection.rtl,
@@ -115,10 +119,13 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Stack(
         children: [
           Container(
-            child: Image.asset('assets/images/bg.gif',fit: BoxFit.fitHeight,),
+            height: double.infinity,
+            child: Image.asset(
+              'assets/images/bg.gif',
+              fit: BoxFit.fill,
+            ),
           ),
           ListView(
-
             children: <Widget>[
               Center(
                 child: Align(
@@ -126,12 +133,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Container(
                     height: 250,
                     width: 250,
-
                     child: Center(
                         child: Text(
-                          '$_counter',
-                          style: TextStyle(fontSize: 70.0,color: Colors.white,fontWeight: FontWeight.bold),
-                        )),
+                      '$_counter',
+                      style: TextStyle(
+                          fontSize: 70.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    )),
                   ),
                 ),
               ),
@@ -159,12 +168,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         child: Center(
                             child: Text(
-                              'أضغط هنا للتسبيح',
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Aref+Ruqaa:700'),
-                            )),
+                          'أضغط هنا للتسبيح',
+                          style: TextStyle(
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Aref+Ruqaa:700'),
+                        )),
                       ),
                     ),
                   ),
@@ -197,93 +206,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ],
-        
       ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            Container(
-
-              height: 200,
-
-              child: Image.asset('assets/images/logo.png')
-            ),
-            Divider(
-              height: 1,
-              thickness: 1,
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AzkarSabah()));
-              },
-              leading: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.amber,
-              ),
-              title: Text(
-                "أذكار الصباح",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    color: Colors.amber,
-                  fontSize: 40,
-                  fontFamily: 'Aref+Ruqaa:700',),
-              ),
-            ),
-            Divider(
-              height: 1,
-              thickness: 1,
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AzkarMasaa()));
-              },
-              leading: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.amber,
-              ),
-              title: Text(
-                "أذكار المساء",
-                
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    color: Colors.amber,
-                    fontSize: 40,
-                    fontFamily: 'Aref+Ruqaa:700',
-
-                ),
-              ),
-            ),
-            Divider(
-              height: 1,
-              thickness: 1,
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PostPrayer()));
-              },
-              leading: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.amber,
-              ),
-              title: Text(
-                "أذكار بعد الصلاة",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    color: Colors.amber,
-                    fontSize: 40,
-                    fontFamily: 'Aref+Ruqaa:700'
-                    ),
-              ),
-            ),
-
-
-          ],
-        ),
-      ),
+      endDrawer: MyDrawer(),
     );
   }
 }
