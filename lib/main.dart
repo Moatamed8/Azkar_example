@@ -1,213 +1,75 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_app2/api_services/details_provider.dart';
-import 'package:flutter_app2/widget/drawer.dart';
-import 'package:provider/provider.dart';
-import 'config/routes.dart';
+import 'dart:convert';
 
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' as rootBundle;
+import 'package:flutter_app2/model/hades_model.dart';
+import 'package:flutter_app2/provider/ktab_provider.dart';
+import 'package:flutter_app2/screens/azkar_masaa.dart';
+import 'package:flutter_app2/screens/home.dart';
+import 'package:flutter_app2/screens/sbha.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp( MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_)=>DetailsProvider()),
-      ],
-      child: MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider.value(value: AzkarProvider()),
+
+  ], child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    getAzkarMasaa();
+    getAzkarSabah();
+    getAzkarPostPrayer();    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: routes,
       theme: ThemeData(),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: HomeScreen(),
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  Color pr = Color(0xff131a31);
-
-  int _counter = 0;
-  bool isClick = true;
-
-  _dismissDialog() {
-    Navigator.pop(context);
+  Future<void> getAzkarMasaa() async {
+    final jsonData =
+    await rootBundle.rootBundle.loadString('assets/json/azkar_massa.json');
+    final model = jsonDecode(jsonData);
+    final azkarMsaList =
+    List<Azkar>.from(model['AzkarMassa'].map((e) => Azkar.fromMap(e)));
+    AzkarProvider.of(context).azkarMsa = azkarMsaList;
+    print("${azkarMsaList.length}");
   }
 
-  void _showMaterialDialog() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: Colors.lightBlue[50],
-            title: Text(
-              'تنبيه',
-              textAlign: TextAlign.right,
-            ),
-            content: Text(
-              'هل تريد الرجوع إلي الصفر؟',
-              textAlign: TextAlign.right,
-            ),
-            actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    _dismissDialog();
-                  },
-                  child: Text('إلغاء')),
-              FlatButton(
-                onPressed: () {
-                  _dismissDialog();
-                  removeCounter();
-                  setState(() {
-                    _counter = 0;
-                  });
-                },
-                child: Text('نعم'),
-              )
-            ],
-          );
-        });
+  Future<void> getAzkarSabah() async {
+    final jsonData =
+    await rootBundle.rootBundle.loadString('assets/json/azkar_sabah.json');
+    final model = jsonDecode(jsonData);
+    final azkarMsaList =
+    List<Azkar>.from(model['AzkarSabah'].map((e) => Azkar.fromMap(e)));
+    AzkarProvider.of(context).azkarSabah = azkarMsaList;
+    print("${azkarMsaList.length}");
+
   }
 
-  @override
-  void initState() {
-    super.initState();
-    getCounter();
-  }
+  Future<void> getAzkarPostPrayer() async {
+    final jsonData = await rootBundle.rootBundle
+        .loadString('assets/json/PostPrayer_azkar.json');
+    final model = jsonDecode(jsonData);
+    final azkarMsaList =
+    List<Azkar>.from(model['AzkarPostPrayer'].map((e) => Azkar.fromMap(e)));
+    AzkarProvider.of(context).azkarPostPrayer = azkarMsaList;
+    print("${azkarMsaList.length}");
 
-  getCounter() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _counter = (prefs.getInt("counter") ?? 0);
-    });
-  }
-
-  setCounter() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt("counter", _counter);
-  }
-
-  removeCounter() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove("counter");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        brightness: Brightness.dark,
-        backgroundColor: pr,
-        iconTheme: IconThemeData(color: Colors.yellow),
-        centerTitle: true,
-        title: Text(
-          "السبحه",
-          style: TextStyle(
-              color: Colors.yellow, fontSize: 25, fontFamily: 'Aref+Ruqaa:700'),
-          textDirection: TextDirection.rtl,
-        ),
-      ),
-      body: Stack(
-        children: [
-          Container(
-            height: double.infinity,
-            child: Image.asset(
-              'assets/images/bg.gif',
-              fit: BoxFit.fill,
-            ),
-          ),
-          ListView(
-            children: <Widget>[
-              Center(
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    height: 250,
-                    width: 250,
-                    child: Center(
-                        child: Text(
-                      '$_counter',
-                      style: TextStyle(
-                          fontSize: 70.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    )),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 60.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          _counter++;
-                        });
-                        setCounter();
-                      },
-                      child: Container(
-                        height: 60.0,
-                        width: 180.0,
-                        decoration: BoxDecoration(
-                          color: Colors.greenAccent,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Center(
-                            child: Text(
-                          'أضغط هنا للتسبيح',
-                          style: TextStyle(
-                              fontSize: 25.0,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Aref+Ruqaa:700'),
-                        )),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      _showMaterialDialog();
-                    },
-                    child: Container(
-                      height: 60.0,
-                      width: 140.0,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'الرجوع للصفر؟',
-                          style: TextStyle(
-                            fontFamily: 'Aref+Ruqaa:700',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-      endDrawer: MyDrawer(),
-    );
   }
 }
+
+
