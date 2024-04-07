@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../provider/ktab_provider.dart';
+import '../../../provider/ktab_provider.dart';
 import '../widgets/custom_azkar_card.dart';
 
 class AzkarSabah extends StatefulWidget {

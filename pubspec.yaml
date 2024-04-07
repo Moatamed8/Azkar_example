@@ -39,6 +39,8 @@ dependencies:
   provider: ^6.1.2
   shimmer: ^3.0.0
   flutter_launcher_icons: ^0.13.1
+  easy_localization: ^3.0.5
+  flutter_screenutil: ^5.9.0
 
 dev_dependencies:
   flutter_test:

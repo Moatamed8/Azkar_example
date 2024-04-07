@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../provider/ktab_provider.dart';
-import '../utils/FontsUtils.dart';
+import '../../../provider/ktab_provider.dart';
+import '../../../utils/FontsUtils.dart';
 import '../widgets/custom_azkar_card.dart';
 
 class AzkarMasaa extends StatefulWidget {
