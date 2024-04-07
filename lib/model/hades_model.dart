@@ -4,9 +4,9 @@
 
 class Azkar {
   Azkar({
-    this.repeat,
-    this.zkr,
-    this.bless,
+    required this.repeat,
+    required this.zkr,
+    required this.bless,
   });
 
   int repeat;

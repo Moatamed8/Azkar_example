@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ColorsUtils {
@@ -7,10 +6,9 @@ class ColorsUtils {
   static Color whiteColor = Colors.white;
   static Color black = Colors.black;
   static Color greyColor = Colors.grey;
-  static Color greyWithOpcity = Colors.grey[300];
+  static Color? greyWithOpcity = Colors.grey[300];
   static Color red = Colors.red;
   static Color green = Colors.green;
-
 
   static const backgroundColor = Color.fromRGBO(250, 250, 250, 1);
   static const mainColor = Color.fromRGBO(61, 196, 196, 1);
@@ -35,5 +33,4 @@ class ColorsUtils {
   static const pickImageColor = Color.fromRGBO(196, 196, 196, 1);
   static const mainColorWithOpacity = Color.fromRGBO(61, 196, 196, .16);
   static const mEDIUMTURQUOISE = Color.fromRGBO(83, 208, 236, 1);
-
 }

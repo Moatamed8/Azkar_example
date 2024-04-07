@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomFunctions {
-  static pushScreen({Widget widget, BuildContext context}) {
+  static pushScreen({required Widget widget, required BuildContext context}) {
     Navigator.push(context, MaterialPageRoute(builder: (ctx) => widget));
   }
 
@@ -9,14 +9,14 @@ class CustomFunctions {
     Navigator.pop(context);
   }
 
-  static pushScreenRepcalement({Widget widget, BuildContext context}) {
+  static pushScreenRepcalement(
+      {required Widget widget, required BuildContext context}) {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (ctx) => widget));
   }
 
-  static cleanAndPush({Widget widget, BuildContext context}) {
+  static cleanAndPush({required Widget widget, required BuildContext context}) {
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (c) => widget), (route) => false);
   }
-
 }

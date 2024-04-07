@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app2/utils/FontsUtils.dart';
-import 'package:flutter_app2/utils/colors.dart';
+
+import '../utils/FontsUtils.dart';
+import '../utils/colors.dart';
 
 class CustomItem extends StatelessWidget {
   final String text;
 
-  CustomItem({this.text});
+  CustomItem({required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class CustomItem extends StatelessWidget {
       alignment: Alignment.center,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: ColorsUtils.whiteColorwithOpacity,
+          color: ColorsUtils.whiteColorwithOpacity,
           border: Border.all(color: ColorsUtils.greyColor, width: 3),
           borderRadius: BorderRadius.circular(8)),
       child: Text(

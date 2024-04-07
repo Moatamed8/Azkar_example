@@ -1,11 +1,11 @@
+import 'package:azkar/screens/postprayer_azkar.dart';
+import 'package:azkar/screens/sbha.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app2/screens/azkar_masaa.dart';
-import 'package:flutter_app2/screens/postprayer_azkar.dart';
-import 'package:flutter_app2/screens/sbha.dart';
-import 'package:flutter_app2/utils/FontsUtils.dart';
-import 'package:flutter_app2/utils/customFunctions.dart';
-import 'package:flutter_app2/widgets/custom_item.dart';
 
+import '../utils/FontsUtils.dart';
+import '../utils/customFunctions.dart';
+import '../widgets/custom_item.dart';
+import 'azkar_masaa.dart';
 import 'azkar_sabah.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -46,8 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   InkWell(
                     splashColor: Colors.transparent,
-                    onTap: (){
-                      CustomFunctions.pushScreen(widget: SbhaScreen(),context: context);
+                    onTap: () {
+                      CustomFunctions.pushScreen(
+                          widget: SbhaScreen(), context: context);
                     },
                     child: CustomItem(
                       text: "السبــحة",
@@ -55,8 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   InkWell(
                     splashColor: Colors.transparent,
-                    onTap: (){
-                      CustomFunctions.pushScreen(widget: AzkarSabah(),context: context);
+                    onTap: () {
+                      CustomFunctions.pushScreen(
+                          widget: AzkarSabah(), context: context);
                     },
                     child: CustomItem(
                       text: "أذكار الصباح",
@@ -64,16 +66,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   InkWell(
                     splashColor: Colors.transparent,
-                    onTap: (){
-                      CustomFunctions.pushScreen(widget: AzkarMasaa(),context: context);
-                    },                    child: CustomItem(
+                    onTap: () {
+                      CustomFunctions.pushScreen(
+                          widget: AzkarMasaa(), context: context);
+                    },
+                    child: CustomItem(
                       text: "أذكار المساء",
                     ),
                   ),
                   InkWell(
                     splashColor: Colors.transparent,
-                    onTap: (){
-                      CustomFunctions.pushScreen(widget: PostPrayer(),context: context);
+                    onTap: () {
+                      CustomFunctions.pushScreen(
+                          widget: PostPrayer(), context: context);
                     },
                     child: CustomItem(
                       text: "أذكار بعد الصلاة",

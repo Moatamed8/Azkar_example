@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-
-import 'package:flutter_app2/provider/ktab_provider.dart';
-import 'package:flutter_app2/utils/FontsUtils.dart';
-import 'package:flutter_app2/widgets/custom_azkar_card.dart';
+import '../provider/ktab_provider.dart';
+import '../utils/FontsUtils.dart';
+import '../widgets/custom_azkar_card.dart';
 
 class AzkarMasaa extends StatefulWidget {
   static const routeName = '/masaa_screen';
@@ -15,7 +15,7 @@ class AzkarMasaa extends StatefulWidget {
 class _AzkarMasaaState extends State<AzkarMasaa>
     with SingleTickerProviderStateMixin {
   Color pr = Color(0xff131a31);
-  List data;
+  late List data;
 
   @override
   void initState() {
@@ -28,7 +28,6 @@ class _AzkarMasaaState extends State<AzkarMasaa>
         textDirection: TextDirection.rtl,
         child: Scaffold(
             appBar: AppBar(
-              brightness: Brightness.dark,
               title: Text(
                 "أذكار المساء",
                 style: TextStyle(
@@ -38,25 +37,27 @@ class _AzkarMasaaState extends State<AzkarMasaa>
                 ),
               ),
               backgroundColor: pr,
+              systemOverlayStyle: SystemUiOverlayStyle.light,
             ),
             body: ListView.builder(
-              itemCount: AzkarProvider.of(context,listen: true).azkarMsa.length,
+              itemCount:
+                  AzkarProvider.of(context, listen: true).azkarMsa.length,
               itemBuilder: (context, index) => CustomAzkarCard(
-                function: (){
-                  if(AzkarProvider.of(context).azkarMsa[index].repeat==0){
-                    setState(() {
-                      AzkarProvider.of(context).azkarMsa.remove(AzkarProvider.of(context).azkarMsa[index]);
-
-                    });
-                  }else{
+                  function: () {
+                    if (AzkarProvider.of(context).azkarMsa[index].repeat == 0) {
+                      setState(() {
+                        AzkarProvider.of(context)
+                            .azkarMsa
+                            .remove(AzkarProvider.of(context).azkarMsa[index]);
+                      });
+                    } else {
                       setState(() {
                         AzkarProvider.of(context).azkarMsa[index].repeat--;
-
-                    });
-                  }
-                },
-                  azkar: AzkarProvider.of(context,listen: true).azkarMsa[index]),
+                      });
+                    }
+                  },
+                  azkar:
+                      AzkarProvider.of(context, listen: true).azkarMsa[index]),
             )));
   }
-
 }

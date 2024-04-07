@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_app2/model/hades_model.dart';
-import 'package:flutter_app2/utils/FontsUtils.dart';
+
+import '../model/hades_model.dart';
+import '../utils/FontsUtils.dart';
 
 class CustomAzkarCard extends StatelessWidget {
   final Azkar azkar;
-  final Function function;
+  final VoidCallback function;
 
-  CustomAzkarCard({this.azkar, this.function});
+  CustomAzkarCard({required this.azkar, required this.function});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class CustomAzkarCard extends StatelessWidget {
       child: InkWell(
         onTap: function,
         child: Container(
-          margin: EdgeInsets.all(10),
+            margin: EdgeInsets.all(10),
             padding: EdgeInsets.all(10),
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
