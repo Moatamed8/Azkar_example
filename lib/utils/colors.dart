@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ColorsUtils {
+class AppColors {
   static Color orangeColor = Color.fromRGBO(97, 57, 176, 1);
   static Color orangeColorWithOpacity = Color.fromRGBO(97, 57, 176, .16);
   static Color whiteColor = Colors.white;

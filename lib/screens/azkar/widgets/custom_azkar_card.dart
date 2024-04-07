@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../model/hades_model.dart';
-import '../utils/FontsUtils.dart';
+import '../../../model/hades_model.dart';
+import '../../../utils/FontsUtils.dart';
 
 class CustomAzkarCard extends StatelessWidget {
   final Azkar azkar;
